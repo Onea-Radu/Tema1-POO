@@ -133,6 +133,27 @@ int PQ::length()
 }
 
 
+PQ& PQ::operator =(const PQ& p)
+{
+if(this!=&p)
+{
+    capacity=p.capacity;
+    siz=p.siz;
+    v=new obj[capacity+1];
+    for(int i=1;i<=siz;i++)
+        v[i]=p.v[i];
+
+
+
+}
+    return *this;
+}
+
+
+
+
+
+
 PQ operator +(const PQ& p,const PQ& q)
 {
  PQ pq(p.capacity+q.capacity);

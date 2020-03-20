@@ -29,6 +29,7 @@ class PQ
         PQ& operator --(int);
         friend istream& operator >>(istream&,PQ&);
         friend ostream& operator <<(ostream&,const PQ&);
+        PQ& operator =(const PQ&);
 
 };
 

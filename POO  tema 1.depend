@@ -1,15 +1,15 @@
 # depslib dependency file v1.0
-1584710552 source:d:\program files (x86)\programe\poo  tema 1\main.cpp
+1584728141 source:d:\program files (x86)\programe\poo  tema 1\main.cpp
 	<iostream>
 	"PQ.h"
 
-1584715114 source:d:\program files (x86)\programe\poo  tema 1\pq.cpp
+1584728095 source:d:\program files (x86)\programe\poo  tema 1\pq.cpp
 	"PQ.h"
 	"obj.h"
 	<iostream>
 	<exception>
 
-1584715002 d:\program files (x86)\programe\poo  tema 1\pq.h
+1584728154 d:\program files (x86)\programe\poo  tema 1\pq.h
 	"obj.h"
 	<iostream>
 
