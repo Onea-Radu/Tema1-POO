@@ -43,8 +43,6 @@ g--;
 assert(g.length()==1);
 
 
-
-
 /*  try catch tests dubios dar strica codul cel putin in codeblocks
 PQ p;
 PQ a;
