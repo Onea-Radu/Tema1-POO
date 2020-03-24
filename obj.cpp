@@ -1,15 +1,8 @@
 #include "obj.h"
-#include <exception>
-#include <iostream>
+
 using namespace std;
 
-class NegativePriority: public exception
-{
-    virtual const char* what() const throw()
-    {
-        return "Priority can't be negative.";
-    }
-};
+
 
 
 
@@ -58,4 +51,9 @@ istream& operator >>(istream& in,obj& o)
 {
   in>>o.value;
   in>>o.priority;
+}
+
+bool obj::operator==(obj o)
+{
+    return this->priority==o.priority&&this->value==o.value;
 }

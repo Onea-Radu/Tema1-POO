@@ -1,24 +1,6 @@
 #include "PQ.h"
-#include "obj.h"
-#include <iostream>
-#include <exception>
+
 using namespace std;
-
-class PQover: public exception
-{
-    virtual const char* what() const throw()
-    {
-        return "Cap exceeded";
-    }
-};
-class PQgol: public exception
-{
-    virtual const char* what() const throw()
-    {
-        return "PQ empty";
-    }
-};
-
 
 PQ::PQ()
 {
@@ -38,11 +20,9 @@ PQ::PQ(int cap)
 }
 
 PQ::~PQ()
-{//nu mergea "delete[] v;" pentru ca v e degradat in pointer
- for(int i=0;i<=capacity;i++)
- {delete v;
- v++;
- }
+{
+ delete[] v;
+
 }
 
 PQ::PQ(const PQ& pq){
@@ -54,13 +34,29 @@ capacity=pq.capacity;
 }
 
 
+PQ& PQ::operator =(const PQ& p)
+{
+if(this!=&p)
+{
+    capacity=p.capacity;
+    siz=p.siz;
+    v=new obj[capacity+1];
+    for(int i=1;i<=siz;i++)
+        v[i]=p.v[i];
+}
+    return *this;
+}
+
+
+
+
+//punem la final comparam cu tatal daca e mai mare le facem swap apoi tot asa
 void PQ::push(int val,int prio)
 {
     if(siz>capacity)throw PQover();
     siz++;
-    obj a(val,prio);//aveam facut un constructor de copiere asa ca de ce nu
+    obj a(val,prio);
     v[siz]=a;
-    delete &a;
    int i=siz;
      while(v[i].priority>v[i/2].priority)
     {
@@ -75,12 +71,15 @@ void PQ::push(obj o)
     push(o.value,o.priority);
 }
 
-int PQ::peek()
+int PQ::peek() const
 {
     if(siz)return v[1].value;
     else throw PQgol();
 }
 
+
+
+//heap standard pop pe vector ultimul element devine primul si apoi se compara cu fii lui si ii ia locul celui mai mare asta se intampla pana cand fii sunt mai mari decat tatal
 int PQ::pop()
 {
     if(siz)
@@ -127,29 +126,10 @@ else throw PQgol();
 
 
 
-int PQ::length()
+int PQ::length() const
 {
     return siz;
 }
-
-
-PQ& PQ::operator =(const PQ& p)
-{
-if(this!=&p)
-{
-    capacity=p.capacity;
-    siz=p.siz;
-    v=new obj[capacity+1];
-    for(int i=1;i<=siz;i++)
-        v[i]=p.v[i];
-
-
-
-}
-    return *this;
-}
-
-
 
 
 
@@ -164,25 +144,25 @@ PQ operator +(const PQ& p,const PQ& q)
  }
  for(i=1;i<=q.siz;i++)
  pq.push(q.v[i].getValue(),q.v[i].getPriority());
+return pq;
 }
 
 
 PQ& PQ::operator++()
 {
 for(int i=1;i<=siz;i++)
-    v[i].priority++;
-
+    v[i].priority=v[i].priority+1;
 
     return *this;
 }
 
-PQ& PQ::operator++(int n)
+PQ PQ::operator++(int n)
 {
-    ++*this;
+    ++(*this);
     return *this;
 }
 
-
+//face ce a cerut
 PQ& PQ::operator--()
 {
 
@@ -202,13 +182,15 @@ for(int i=1;i<=siz;i++)
     return *this;
 }
 
-PQ& PQ::operator--(int n)
+PQ PQ::operator--(int n)
 {
     --*this;
     return *this;
 }
 
-int PQ::maxElement()
+
+//returneaza valoarea elementului maxim
+int PQ::maxElement() const
 {
  int m=INT_MIN;
   if(siz)
@@ -240,14 +222,6 @@ ostream& operator <<(ostream& out,const PQ& p)
   out<<endl;
   return out;
 }
-
-
-
-
-
-
-
-
 
 
 
